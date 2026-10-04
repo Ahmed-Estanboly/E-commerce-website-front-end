@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products | Shopaholic Store</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container nav">
+        <a class="logo" href="index.html">SHOPAHOLIC</a>
+        <nav class="nav-links">
+          <a href="index.html">Home</a><a href="products.html">Products</a
+          ><a href="cart.html">Cart</a><a href="checkout.html">Checkout</a>
+            
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" type="button">Dark mode</button>
+      </div>
+    </header>
+    <main class="section">
+      <div class="container">
+        <h1 class="section-title">All Products</h1>
+        <div class="filters">
+          <input
+            id="search"
+            type="search"
+            placeholder="Search products"
+          /><select id="category">
+            <option value="">All categories</option>
+            <option>Shoes</option>
+            <option>Bags</option>
+            <option>Accessories</option>
+            <option>Clothing</option></select
+          ><select id="sort">
+            <option value="">Sort products</option>
+            <option value="low">Price: low to high</option>
+            <option value="high">Price: high to low</option>
+          </select>
+        </div>
+        <div id="product-list" class="products-grid"></div>
+      </div>
+    </main>
+    <footer class="footer">&copy; 2026 SHOPAHOLIC Store</footer>
+    <script src="js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | Shopaholic Store</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container nav">
+        <a class="logo" href="index.html">SHOPAHOLIC</a>
+        <nav class="nav-links">
+          <a href="index.html">Home</a><a href="products.html">Products</a
+          ><a href="cart.html">Cart</a><a href="checkout.html">Checkout</a>
+            
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" type="button">Dark mode</button>
+      </div>
+    </header>
+    <main class="section">
+      <div class="container">
+        <h1 class="section-title">Checkout / Orders</h1>
+        <div class="checkout-layout">
+          <form id="checkout-form" class="form-box">
+            <h2>Customer Information</h2>
+            <div class="form-group">
+              <label for="name">Full Name</label><input id="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label
+              ><input id="email" type="email" required />
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label
+              ><input id="address" required />
+            </div>
+            <button class="button" type="submit">Place Order</button>
+            <p id="order-message"></p>
+          </form>
+          <section class="order">
+            <h2>Previous Orders</h2>
+            <p>No previous orders yet.</p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">&copy; 2026 SHOPAHOLIC Store</footer>
+    <script src="js/script.js"></script>
+  </body>
+</html>
