@@ -93,11 +93,45 @@ const renderDetails = (products, detailsElement) => {
     <div class="form-box">
       <h1>${product.name}</h1>
       <p>${product.category}</p>
+      <div class="product-details-meta">
+        <p class="product-rating"><span aria-hidden="true">&#9733;</span> ${product.rating?.toFixed(1) || "N/A"} / 5</p>
+        <p class="product-warranty">Warranty: ${product.warranty || "Not available"}</p>
+      </div>
       <p class="price">$${product.price}</p>
       <p>${product.description || "No Description Found."}</p>
       <button class="button" type="button" data-add-cart="${product.id}">Add to Cart</button>
     </div>
   `;
+};
+
+const renderReviews = (products, reviewsElement) => {
+  if (!reviewsElement) return;
+
+  const product =
+    products.find(
+      (item) => item.id === Number(new URLSearchParams(location.search).get("id")),
+    ) || products[0];
+
+  if (!product || !product.reviews.length) {
+    reviewsElement.innerHTML =
+      '<p class="empty">No reviews available for this product.</p>';
+    return;
+  }
+
+  reviewsElement.innerHTML = product.reviews
+    .map(
+      (review) => `
+        <article class="review-item">
+          <div class="review-header">
+            <h3>${review.reviewerName || "Anonymous customer"}</h3>
+            <span class="review-rating"><span aria-hidden="true">&#9733;</span> ${review.rating || "N/A"} / 5</span>
+          </div>
+          <p>${review.comment || "No comment provided."}</p>
+          <time datetime="${review.date || ""}">${review.date ? new Date(review.date).toLocaleDateString() : ""}</time>
+        </article>
+      `,
+    )
+    .join("");
 };
 
 const renderCart = (products, cartListElement) => {
@@ -146,8 +180,9 @@ const renderPreviousOrders = () => {
               <p><strong>Order #${order.id}</strong> - ${new Date(order.date).toLocaleDateString()}</p>
               <p>${order.items
                 .map((item) => `${item.name} x${item.quantity}`)
-                .join(", ")}</p>
+                .join("<br> ")}</p>
               <strong>Total: $${order.total}</strong>
+              <hr>
             </div>
           `,
         )

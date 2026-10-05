@@ -5,6 +5,9 @@ const normalizeProduct = (product) => ({
   name: product.title,
   category: product.category,
   price: product.price,
+  rating: product.rating,
+  warranty: product.warrantyInformation,
+  reviews: product.reviews || [],
   image:
     product.thumbnail || product.images?.[0] ||
     "images/fallbackProduct.svg",

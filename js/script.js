@@ -2,6 +2,7 @@ const savedTheme = getSavedTheme();
 document.documentElement.dataset.theme = savedTheme;
 
 let products = [];
+let productsReady;
 
 initThemeToggle();
 updateCartCount();
@@ -45,28 +46,29 @@ const productList = document.querySelector("#product-list");
 const featured = document.querySelector("#featured-products");
 const favoriteProducts = document.querySelector("#favorite-products");
 const details = document.querySelector("#product-details");
+const reviews = document.querySelector("#product-reviews");
 const cartList = document.querySelector("#cart-list");
 const checkoutForm = document.querySelector("#checkout-form");
 const orderSection = document.querySelector(".order");
 
 const initializeApp = async () => {
-  [productList, featured, favoriteProducts, details, cartList, orderSection].forEach(
-    renderLoading,
-  );
-  products = await getProducts();
+  [productList, featured, favoriteProducts, details, reviews, cartList, orderSection].forEach(renderLoading);
+  renderPreviousOrders();
+  productsReady = getProducts();
+  products = await productsReady;
   renderCategoryOptions(products);
   renderProductList(products, productList);
   renderFeaturedProducts(products, featured);
   renderFavoriteProducts(products, favoriteProducts);
   renderDetails(products, details);
+  renderReviews(products, reviews);
   renderCart(products, cartList);
-  renderPreviousOrders();
 };
 
 initializeApp();
 
 if (checkoutForm)
-  checkoutForm.addEventListener("submit", (event) => {
+  checkoutForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const cart = getCart();
@@ -76,12 +78,20 @@ if (checkoutForm)
       return;
     }
 
+    await productsReady;
+
     const orderItems = cart
       .map((item) => {
         const product = products.find((entry) => entry.id === item.id);
         return product ? { ...product, quantity: item.quantity } : null;
       })
       .filter(Boolean);
+
+    if (!orderItems.length) {
+      document.querySelector("#order-message").textContent =
+        "Products are still loading. Please try again.";
+      return;
+    }
 
     const orders = getOrders();
     const newOrder = {
