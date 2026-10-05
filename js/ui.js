@@ -95,7 +95,7 @@ const renderDetails = (products, detailsElement) => {
       <p>${product.category}</p>
       <div class="product-details-meta">
         <p class="product-rating"><span aria-hidden="true">&#9733;</span> ${product.rating?.toFixed(1) || "N/A"} / 5</p>
-        <p class="product-warranty">Warranty: ${product.warranty || "Not available"}</p>
+        <p class="product-warranty">Warranty: ${product.warranty || "No Warranty available"}</p>
       </div>
       <p class="price">$${product.price}</p>
       <p>${product.description || "No Description Found."}</p>
@@ -148,7 +148,18 @@ const renderCart = (products, cartListElement) => {
     ? items
         .map(
           (item) =>
-            `<div class="cart-item"><img src="${item.image}" alt="${item.name}"><div><h3>${item.name}</h3><p>$${item.price} each</p><input class="quantity" type="number" min="1" value="${item.quantity}" data-quantity="${item.id}"></div><div class="cart-item-actions"><strong>$${item.price * item.quantity}</strong><button class="remove-button" type="button" data-remove-cart="${item.id}">Remove</button></div></div>`,
+            `<div class="cart-item">
+              <img src="${item.image}" alt="${item.name}">
+              <div>
+              <h3>${item.name}</h3>
+              <p>$${item.price} each</p>
+              <input class="quantity" type="number" min="1" value="${item.quantity}" data-quantity="${item.id}">
+              </div>
+                <div class="cart-item-actions">
+                  <strong>$${item.price * item.quantity}</strong>
+                  <button class="remove-button" type="button" data-remove-cart="${item.id}">Remove</button>
+                </div>
+            </div>`,
         )
         .join("")
     : '<p class="empty">Your cart is empty.</p>';
